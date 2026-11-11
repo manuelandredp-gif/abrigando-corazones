@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" role="img" aria-label="Ilustración de un local convertido en punto de acopio con caja de donaciones">
+  <rect width="560" height="380" fill="#E6EEF9"/>
+  <circle cx="480" cy="80" r="90" fill="#C9D9F2" opacity="0.6"/>
+  <rect x="120" y="120" width="320" height="210" fill="#FFF8F0" rx="6"/>
+  <polygon points="100,124 280,60 460,124" fill="#123A63"/>
+  <rect x="120" y="120" width="320" height="24" fill="#EA580C" rx="2"/>
+  <rect x="256" y="176" width="48" height="76" fill="#0E2A4A"/>
+  <path d="M196,250 L364,250 L364,330 L196,330 Z" fill="#E5E7EB"/>
+  <path d="M176,330 L384,330 L364,282 L216,282 Z" fill="#123A63"/>
+  <rect x="238" y="196" width="16" height="16" fill="#FDBA74" rx="2"/>
+  <path d="M280,252 a22,22 0 0 1 0,-40 a19,19 0 0 1 28,13 l-3,6 -5,-4 a10,10 0 0 0 -11,14 l-3,-7 -2,5 -1,13 Z" fill="#F97316"/>
+  <g fill="#F97316" opacity="0.75">
+    <circle cx="300" cy="86" r="4"/>
+    <circle cx="200" cy="70" r="3"/>
+    <circle cx="380" cy="80" r="3.5"/>
+  </g>
+</svg>

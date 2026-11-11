@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# El disparador del reporte diario envia correos: no debe rastrearse.
+Disallow: /metricas/
+
+Sitemap: https://REEMPLAZAR-POR-TU-DOMINIO/sitemap.xml

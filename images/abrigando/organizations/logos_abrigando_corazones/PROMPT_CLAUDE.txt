@@ -1,0 +1,116 @@
+INTEGRACIÓN PROFESIONAL DE LOGOS OFICIALES — ABRIGANDO CORAZONES
+
+Trabaja directamente sobre el proyecto existente de Abrigando Corazones. Este proyecto es PHP MVC clásico; no es Laravel. No cambies la arquitectura, no crees otro proyecto, no desarrolles administración y no modifiques lógica de negocio que no sea necesaria para mostrar correctamente los logos.
+
+OBJETIVO
+Integrar los 14 logos oficiales que te proporcionaré dentro de la carpeta:
+public/images/abrigando/organizations/
+
+Los nombres de archivo ya están normalizados y son la fuente de verdad para la relación con cada organización. No los vuelvas a renombrar ni a mover a rutas distintas salvo que exista una razón técnica real y documentada.
+
+ARCHIVOS Y ORGANIZACIONES
+- cabcor.jpg -> CABCOR
+- donalegria.jpg -> DonAlegría
+- fuerza-upt.jpg -> Fuerza UPT
+- funt-unjbg.jpg -> FUNT — Federación Universitaria de Tacna / UNJBG
+- genera-verde-huayna.jpg -> Genera Verde Huayna — Tacna, Perú
+- grupo-capsu.png -> Grupo CAPSU
+- hukap.jpg -> HUKAP
+- make-sense.jpg -> Make Sense
+- manos-en-accion-tacna.jpg -> Manos en Acción Tacna
+- recuperando-valores-tacna.jpg -> Recuperando Valores Tacna
+- red-mun-tacna.jpg -> Red Mundial de Jóvenes Políticos / REDMUN Tacna
+- reu-upt.jpg -> REU UPT
+- rua-upt.jpg -> RUA Perú — Nodo UPT Tacna
+- tacclaun-voluntariado.jpg -> TACCLAUN Voluntariado
+
+REGLAS ESTRICTAS
+1. No redibujes, recolorees, deformes, recortes, simplifiques ni sustituyas ninguno de estos logos.
+2. No uses object-fit: cover en logos. Usa object-fit: contain.
+3. No uses filtros CSS como invert(), hue-rotate(), brightness() o mix-blend-mode para alterar la identidad visual.
+4. No inventes logos para organizaciones que no los tengan.
+5. Mantén fallback profesional de iniciales únicamente para organizaciones sin asset oficial.
+6. Si ya existe un campo de logo/image/logo_path en los datos, reutilízalo. No crees un segundo sistema paralelo.
+7. No hardcodees 14 if/else dentro de la vista. Centraliza la relación de logo con organización en el modelo, controlador, configuración o estructura de datos ya existente.
+8. No dupliques organizaciones. Antes de asociar un logo, revisa los registros existentes y relaciona alias equivalentes con el mismo registro.
+9. Los nombres visibles deben mantenerse correctos y en UTF-8.
+10. No cambies datos de contacto, estadísticas, categorías ni contenido no relacionado.
+
+HOME
+En la sección “Organizaciones aliadas” del Home, reemplaza los fallbacks de iniciales por los logos reales disponibles.
+- Mostrar 6–8 aliados visibles en desktop, según el espacio disponible.
+- Mantener tarjetas blancas o contenedores limpios sobre el fondo navy.
+- Cada logo debe verse completo y conservar proporción.
+- Si hay más aliados, permitir scroll horizontal accesible o un marquee muy lento únicamente si ya existe el sistema de motion y respeta prefers-reduced-motion.
+- No hacer logos microscópicos para intentar meterlos todos a la vez.
+
+PÁGINA /ALIADOS
+Mantener el grid profesional actual y reemplazar los fallbacks por logos oficiales.
+- Desktop grande: 4 columnas.
+- Desktop: 3 columnas.
+- Tablet: 2 columnas.
+- Móvil: 1 columna.
+- Card min-height aproximado: 210–250 px.
+- Logo frame aproximado: 95–110 px de alto.
+- Logos horizontales: max-width 170–190 px, max-height 80–90 px.
+- Logos cuadrados/circulares: max-height 85–100 px.
+- Mantener el nombre de la organización debajo del logo aunque el propio logo tenga texto.
+- Mostrar categoría mediante badge discreto.
+- Hover desktop: translateY(-5px), shadow suave, logo scale máximo 1.035.
+- No rotar logos ni usar efectos 3D.
+
+CASOS VISUALES ESPECIALES
+- grupo-capsu.png: logo muy horizontal y con fondo negro. No recortar letras. Dar más ancho y un frame que conserve contraste.
+- funt-unjbg.jpg: fondo negro. Mostrar completo, sin intentar quitar el fondo.
+- hukap.jpg: fondo navy. Usar un frame que permita distinguir el borde del logo sobre la card.
+- make-sense.jpg: extremadamente horizontal. Dar prioridad al ancho, no a la altura.
+- fuerza-upt.jpg: logo circular/complejo; mostrar completo, incluido el lema cuando sea legible.
+- genera-verde-huayna.jpg: circular; no recortar el contorno.
+- recuperando-valores-tacna.jpg: horizontal con mucho blanco; ajustar max-width para que no parezca diminuto.
+- donalegria.jpg: horizontal/ancho; no forzarlo a cuadrado.
+- rua-upt.jpg: horizontal; conservar “RUA PERÚ — NODO UPT - TACNA”.
+- reu-upt.jpg: vertical; mostrar el ave completa.
+- cabcor.jpg, tacclaun-voluntariado.jpg, red-mun-tacna.jpg y manos-en-accion-tacna.jpg: mantener el emblema completo sin cropping.
+
+ACCESIBILIDAD
+Cada <img> debe tener alt específico, por ejemplo:
+alt="Logo de Fuerza UPT"
+alt="Logo de REU UPT"
+alt="Logo de RUA Perú - Nodo UPT Tacna"
+No uses alt genéricos como “logo” o “imagen”.
+
+PERFORMANCE
+- loading="lazy" para logos fuera del viewport inicial.
+- decoding="async" cuando corresponda.
+- Mantén width/height o aspect-ratio para evitar CLS.
+- No conviertas los archivos originales si no es necesario.
+- Si optimizas una versión web, conserva el original.
+
+RESPONSIVE
+Verifica al menos:
+1440 px
+1024 px
+768 px
+390 px
+
+En móvil no permitas:
+- logos recortados;
+- cards gigantes;
+- scroll horizontal accidental;
+- nombres truncados;
+- slogans cortados.
+
+QA OBLIGATORIA
+Abrir Home y /aliados y comprobar:
+- los 14 archivos existen;
+- ninguna ruta 404;
+- ningún logo deformado;
+- ningún logo recortado;
+- fallbacks solo donde realmente faltan assets;
+- filtros de aliados siguen funcionando;
+- cards de altura coherente;
+- responsive correcto;
+- no hay errores JS;
+- no hay problemas de UTF-8.
+
+No presentes otro plan. Empieza directamente por copiar/verificar los assets, asociarlos a los registros existentes y después actualizar Home y /aliados. Al final responde solo con: archivos usados, asociaciones realizadas, organizaciones aún sin logo, cambios en Home, cambios en /aliados, QA responsive y pendientes reales.

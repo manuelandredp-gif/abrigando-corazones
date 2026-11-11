@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" role="img" aria-label="Ilustración de casaca, frazada y calzado para donar">
+  <rect width="560" height="380" fill="#FDEBDD"/>
+  <circle cx="470" cy="70" r="100" fill="#FDBA74" opacity="0.25"/>
+  <circle cx="80" cy="330" r="90" fill="#F97316" opacity="0.1"/>
+  <g stroke="#FFFFFF" stroke-width="3" opacity="0.9">
+    <path d="M160,60 L400,60"/>
+    <path d="M154,74 L406,74"/>
+  </g>
+  <path d="M232,96 L328,96 L326,300 L258,300 Z" fill="#F97316"/>
+  <path d="M232,96 L210,180 L252,196 L262,130 Z" fill="#EA580C"/>
+  <path d="M328,96 L350,180 L308,196 L298,130 Z" fill="#EA580C"/>
+  <path d="M232,300 L228,344 L252,344 L256,306 Z" fill="#EA580C"/>
+  <path d="M328,300 L332,344 L308,344 L304,306 Z" fill="#EA580C"/>
+  <path d="M266,104 L294,104 L294,300 L266,300 Z" fill="#FDBA74"/>
+  <g stroke="#F97316" stroke-width="3">
+    <path d="M270,120 L290,120"/>
+    <path d="M270,136 L290,136"/>
+    <path d="M270,152 L290,152"/>
+  </g>
+  <rect x="386" y="150" width="120" height="70" rx="10" fill="#123A63"/>
+  <g stroke="#FFFFFF" stroke-width="3" opacity="0.45">
+    <path d="M396,176 L496,176"/>
+    <path d="M396,196 L496,196"/>
+  </g>
+  <g fill="none" stroke="#EA580C" stroke-width="7" stroke-linecap="round">
+    <path d="M70,330 Q110,300 160,330 Q200,358 240,330"/>
+    <path d="M110,362 Q160,332 210,362"/>
+  </g>
+</svg>

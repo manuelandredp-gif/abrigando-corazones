@@ -1,0 +1,12 @@
+# Credenciales locales (usar los *.local.example.php como plantilla)
+*.local.php
+
+# Actualizadores de un solo uso: llevan tokens reales incrustados
+/paso1.php
+/paso2.php
+
+# Registros y archivos subidos por usuarios
+/logs/*
+!/logs/.gitkeep
+/uploads/*
+!/uploads/.gitkeep

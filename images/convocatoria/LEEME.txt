@@ -1,0 +1,24 @@
+AFICHE DE LA CONVOCATORIA ARTISTICA
+===================================
+
+Para mostrar el afiche oficial en la pagina /convocatoria-artistica,
+copia la imagen en esta misma carpeta con uno de estos nombres exactos:
+
+    afiche-convocatoria-artistica.webp   (recomendado, pesa menos)
+    afiche-convocatoria-artistica.png
+    afiche-convocatoria-artistica.jpg
+
+La web toma el primero que encuentre, en ese orden.
+
+Mientras no exista ninguno de esos archivos, la pagina muestra una
+version del afiche compuesta en HTML/CSS con los mismos datos. No se
+rompe ni queda un hueco: simplemente se ve la version tipografica.
+
+Recomendaciones para la imagen:
+  - Formato cuadrado (1:1), igual que la pieza de redes.
+  - Ancho de 1080 px es mas que suficiente.
+  - Menos de 400 KB. Si el PNG pesa mas, conviertelo a WebP.
+
+Los textos de la convocatoria (fecha de cierre, categorias, enlace del
+formulario, preguntas frecuentes) NO estan en la imagen: se editan en
+    app/config/art_call.php
