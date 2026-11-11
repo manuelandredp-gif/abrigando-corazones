@@ -1,0 +1,80 @@
+name: Despliegue en InfinityFree
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Publicar el código en abrigandocorazones.site.je
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: abrigando-corazones-infinityfree
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Obtener el código del commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Preparar y validar los archivos
+        shell: bash
+        run: |
+          release_dir="$RUNNER_TEMP/abrigando-release"
+          mkdir -p "$release_dir"
+          git archive HEAD .htaccess index.php robots.txt app css images js vendor |
+            tar -x -C "$release_dir"
+          rm -rf "$release_dir/app/respaldo"
+          find "$release_dir" -type f \( -name '*.local.php' -o -name '*.local.example.php' \) -delete
+          find "$release_dir" -type f -name '*.php' -print0 | xargs -0 -n 1 php -l
+          printf 'Commit: %s\nGitHub Actions: %s/%s/actions/runs/%s\n' \
+            "$GITHUB_SHA" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" \
+            > "$release_dir/version-despliegue.txt"
+
+      - name: Instalar el cliente FTP
+        if: ${{ inputs.deploy }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends lftp
+
+      - name: Publicar y verificar el commit en el alojamiento
+        if: ${{ inputs.deploy }}
+        shell: bash
+        env:
+          FTP_HOST: ${{ vars.INFINITYFREE_FTP_HOST }}
+          FTP_REMOTE_DIR: ${{ vars.INFINITYFREE_REMOTE_DIR }}
+          FTP_USERNAME: ${{ secrets.INFINITYFREE_FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+        run: |
+          : "${FTP_USERNAME:?Falta el secreto INFINITYFREE_FTP_USERNAME}"
+          : "${LFTP_PASSWORD:?Falta el secreto INFINITYFREE_FTP_PASSWORD}"
+          [[ "$FTP_USERNAME" =~ ^[a-zA-Z0-9_.-]+$ ]] || { echo "Revisa el usuario FTP."; exit 1; }
+          [[ "$FTP_HOST" =~ ^[a-zA-Z0-9.-]+$ ]] || { echo "Revisa INFINITYFREE_FTP_HOST."; exit 1; }
+          [[ "$FTP_REMOTE_DIR" == /htdocs || "$FTP_REMOTE_DIR" == /abrigandocorazones.site.je/htdocs ]] ||
+            { echo "Revisa la carpeta de este sitio en INFINITYFREE_REMOTE_DIR."; exit 1; }
+          cd "$RUNNER_TEMP/abrigando-release"
+          remote_version=$(mktemp)
+          lftp --norc <<FTP
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 25
+          open --env-password -u $FTP_USERNAME ftp://$FTP_HOST
+          cd $FTP_REMOTE_DIR
+          mirror --reverse --parallel=1 --no-perms --transfer-all --exclude-glob version-despliegue.txt . .
+          put version-despliegue.txt
+          get version-despliegue.txt -o $remote_version
+          bye
+          FTP
+          cmp version-despliegue.txt "$remote_version"
+          printf 'Publicado el commit %s en https://abrigandocorazones.site.je/\n' "$GITHUB_SHA"
